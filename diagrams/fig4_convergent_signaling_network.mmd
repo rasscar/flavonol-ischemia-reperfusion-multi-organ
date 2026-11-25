@@ -1,0 +1,74 @@
+%%{init: {
+  'theme': 'base',
+  'themeVariables': {
+    'primaryColor': '#FFFFFF',
+    'primaryTextColor': '#111827',
+    'primaryBorderColor': '#1E293B',
+    'lineColor': '#334155',
+    'fontFamily': 'Arial, Helvetica, sans-serif',
+    'fontSize': '12px'
+  }
+}}%%
+
+flowchart LR
+    subgraph DELIVERY ["Nano-DDS Enhancement"]
+        DDS["<b>Nanocarriers</b><br/>• Liposomes (10%)<br/>• Mesoporous Silica (MSNs)<br/>• Exosomes<br/><i>(↑ Bioavailability & BBB penetration)</i>"]
+    end
+
+    subgraph COMPOUNDS ["Flavonol Subclasses"]
+        FLAV["<b>Pleiotropic Flavonols</b><br/>• Quercetin (15 studies, 6 organs)<br/>• Morin (10 studies, 5 organs)<br/>• Fisetin, Kaempferol, Isorhamnetin"]
+    end
+
+    subgraph CONVERGENCE ["Central Molecular Convergence Nodes"]
+        direction TB
+        NRF2["<b>Antioxidant Axis (Keap1/Nrf2)</b><br/>• Keap1 dissociation → Nrf2 nuclear translocation<br/>• ↑ ARE transcription: HO-1, SOD, CAT, GSH<br/>• ↓ Lipid peroxidation (MDA) & DNA damage (8-OHdG)"]
+        
+        NFKB["<b>Anti-Inflammatory Axis (TLR4/IKKβ/NF-κB)</b><br/>• ↓ DAMP-TLR4 recognition & IKKβ phosphorylation<br/>• Blocks NF-κB p65 nuclear translocation<br/>• ↓ TNF-α, IL-1β, IL-6, MMP-9; promotes M2 polarization"]
+    end
+
+    subgraph CELL_DEATH ["Regulated Cell Death (RCD) Interception"]
+        direction TB
+        APOP["<b>Apoptosis (All 5 Flavonols)</b><br/>• ↑ mt-K<sub>ATP</sub>, closes mPTP, ↑ Bcl-2/Bax<br/>• Blocks <i>Cyt c</i> → Caspase-9/3"]
+        
+        FERRO["<b>Ferroptosis (Quercetin)</b><br/>• Inhibits ATF3 → ↑ SLC7A11 / GSH<br/>• Activates GPX4 → ↓ Fe²⁺ & Lipid ROS"]
+        
+        PYRO["<b>Pyroptosis (Quercetin & Morin)</b><br/>• Disrupts Caspase-8/ASC binding<br/>• Inhibits NLRP3 & GSDMD-N pore formation"]
+        
+        AUTO["<b>Autophagy (Morin & Quercetin)</b><br/>• Dissociates Bcl-2/Beclin-1 (heart)<br/>• Modulates Nurr1/AKT/TFEB & mTOR"]
+    end
+
+    ORGANS["<b>Multi-Organ I/R Protection</b><br/>• Brain (MCAO/stroke, BBB)<br/>• Heart (MIRI, Langendorff)<br/>• Liver (HIRI) & Kidney (AKI)<br/>• Lung, Testis, Skeletal Muscle"]
+
+    DDS ==>|Targeted Delivery| FLAV
+    FLAV ==>|Activates| NRF2
+    FLAV --x|Inhibits| NFKB
+
+    NRF2 -->|Redox Crosstalk| NFKB
+    NRF2 --> APOP
+    NRF2 --> FERRO
+    NFKB --x PYRO
+    FLAV --> AUTO
+
+    APOP ==> ORGANS
+    FERRO ==> ORGANS
+    PYRO ==> ORGANS
+    AUTO ==> ORGANS
+
+    classDef ddsStyle fill:#F5F3FF,stroke:#6D28D9,stroke-width:1.5px,color:#4C1D95,text-align:left;
+    classDef flavStyle fill:#EFF6FF,stroke:#1D4ED8,stroke-width:1.8px,color:#1E3A8A,text-align:left;
+    classDef nrfStyle fill:#ECFDF5,stroke:#059669,stroke-width:1.5px,color:#064E3B,text-align:left;
+    classDef nfkStyle fill:#FEF2F2,stroke:#DC2626,stroke-width:1.5px,color:#7F1D1D,text-align:left;
+    classDef rcdStyle fill:#FFFFFF,stroke:#475569,stroke-width:1.2px,color:#0F172A,text-align:left;
+    classDef orgStyle fill:#FFFBEB,stroke:#B45309,stroke-width:1.8px,color:#78350F,text-align:left;
+
+    class DDS ddsStyle;
+    class FLAV flavStyle;
+    class NRF2 nrfStyle;
+    class NFKB nfkStyle;
+    class APOP,FERRO,PYRO,AUTO rcdStyle;
+    class ORGANS orgStyle;
+
+    style DELIVERY fill:#FAF5FF,stroke:#DDD6FE,color:#5B21B6
+    style COMPOUNDS fill:#F8FAFC,stroke:#CBD5E1,color:#334155
+    style CONVERGENCE fill:#F8FAFC,stroke:#CBD5E1,color:#334155
+    style CELL_DEATH fill:#F8FAFC,stroke:#CBD5E1,color:#334155
