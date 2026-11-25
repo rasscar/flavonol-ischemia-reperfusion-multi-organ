@@ -1,0 +1,77 @@
+---
+
+### 2. File Model 1: `diagrams/fig3_mitochondrial_protection.mmd`
+*Model ini memperbaiki seluruh anomali logika pada Gambar 3 di naskah Anda (menghapus duplikasi kotak Morin & Quercetin, memperbaiki jalur Bcl-2 langsung menuju mPTP, mengubah "hiperpolarisasi seluler" menjadi "depolarisasi ringan ΔΨm", serta menggunakan kode warna standar buku ajar biokimia: biru untuk aktivasi/pro-survival, merah terputus untuk stres patologis/inhibisi)*.
+
+```mermaid
+%%{init: {
+  'theme': 'base',
+  'themeVariables': {
+    'primaryColor': '#FFFFFF',
+    'primaryTextColor': '#111827',
+    'primaryBorderColor': '#1E293B',
+    'lineColor': '#1E293B',
+    'fontFamily': 'Arial, Helvetica, sans-serif',
+    'fontSize': '13px'
+  }
+}}%%
+
+flowchart TD
+    %% Title Header
+    INTERVENTION["<b>FLAVONOL INTERVENTION</b><br/>Morin & Quercetin<br/><i>(Free or Nano-Encapsulated Form)</i>"]
+
+    %% Pathological Trigger (Left Anchor)
+    IRI["<b>ISCHEMIA-REPERFUSION STRESS</b><br/>• Acute ATP depletion<br/>• Mitochondrial ROS burst<br/>• Cytosolic & matrix Ca²⁺ overload"]
+
+    subgraph MITO_ORGANELLE ["MITOCHONDRIAL MEMBRANE & MATRIX COMPARTMENT"]
+        direction TB
+
+        subgraph UPSTREAM_TARGETS ["Primary Molecular Targets"]
+            direction LR
+            M1["<b>1. mt-K<sub>ATP</sub> Channel Activation</b><br/>• Pharmacological opening of inner<br/>  membrane ATP-sensitive K⁺ channels"]
+            M2["<b>2. Bcl-2 Family Regulation</b><br/>• ↑ Anti-apoptotic Bcl-2<br/>• ↓ Pro-apoptotic Bax oligomerization"]
+        end
+
+        M3["<b>3. Ionic & Redox Homeostasis</b><br/>• Mild ΔΨm depolarization (reduces Ca²⁺ driving force)<br/>• Attenuation of mitochondrial ROS generation<br/>• Prevention of matrix Ca²⁺ overload"]
+
+        M4["<b>4. Inhibition of mPTP Opening</b><br/>• Mitochondrial Permeability Transition Pore<br/>  maintained in closed state"]
+
+        M5["<b>5. Bioenergetic & Structural Stabilization</b><br/>• Preservation of membrane potential (ΔΨm)<br/>• Prevention of osmotic mitochondrial swelling<br/>• Restoration of oxidative phosphorylation (ATP ↑)"]
+
+        M6["<b>6. Outer Membrane Integrity</b><br/>• Retention of <i>Cytochrome c</i> within<br/>  intermembrane space (no cytosolic leakage)"]
+    end
+
+    M7["<b>7. Arrest of Intrinsic Apoptosis Cascade</b><br/>• ✕ No APAF-1 / <i>Cytochrome c</i> apoptosome assembly<br/>• ✕ Caspase-9 cleavage blocked<br/>• ✕ Executioner Caspase-3 & PARP cleavage inhibited"]
+
+    OUTCOME["<b>8. MULTI-ORGAN PROTECTIVE OUTCOME</b><br/>✓ Increased parenchymal & endothelial cell survival<br/>✓ Reduced infarct volume (heart, brain, skeletal muscle)<br/>✓ Functional organ recovery post-reperfusion"]
+
+    %% Signaling Edges
+    INTERVENTION ==>|Direct Activation| M1
+    INTERVENTION ==>|Transcriptional / Post-translational Modulation| M2
+
+    M1 --> M3
+    M3 --> M4
+    M2 --> M4
+
+    IRI --x|Blocked by Flavonols| M4
+
+    M4 --> M5
+    M5 --> M6
+    M6 --> M7
+    M7 ==> OUTCOME
+
+    %% Textbook / Journal Styling
+    classDef drugNode fill:#EFF6FF,stroke:#1D4ED8,stroke-width:2px,color:#1E3A8A;
+    classDef stressNode fill:#FEF2F2,stroke:#DC2626,stroke-width:1.5px,stroke-dasharray: 5 5,color:#7F1D1D;
+    classDef stepNode fill:#FFFFFF,stroke:#334155,stroke-width:1.3px,color:#0F172A,text-align:left;
+    classDef gateNode fill:#F0FDF4,stroke:#15803D,stroke-width:1.8px,color:#14532D,text-align:left;
+    classDef outcomeNode fill:#ECFDF5,stroke:#047857,stroke-width:2px,color:#064E3B,text-align:left;
+
+    class INTERVENTION drugNode;
+    class IRI stressNode;
+    class M1,M2,M3,M5,M6,M7 stepNode;
+    class M4 gateNode;
+    class OUTCOME outcomeNode;
+
+    style MITO_ORGANELLE fill:#F8FAFC,stroke:#64748B,stroke-width:1.5px,stroke-dasharray: 3 3,color:#334155
+    style UPSTREAM_TARGETS fill:#F1F5F9,stroke:#CBD5E1,stroke-width:1px,color:#475569
